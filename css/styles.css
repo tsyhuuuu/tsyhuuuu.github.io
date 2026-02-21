@@ -10970,3 +10970,66 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
+
+/* Research Section Styles */
+.research-list {
+  width: 100%;
+}
+
+.research-item {
+  border-left: 3px solid #bd5d38;
+  padding-left: 1rem;
+}
+
+.research-toggle {
+  color: #212529;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.research-toggle:hover {
+  color: #bd5d38;
+}
+
+.research-toggle.active {
+  color: #bd5d38;
+}
+
+.toggle-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.toggle-icon.active {
+  transform: rotate(90deg);
+}
+
+.research-content-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.research-content-container.active {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+.research-content {
+  line-height: 1.8;
+  color: #495057;
+  text-align: justify;
+}
+
+.research-content p {
+  margin-bottom: 1rem;
+}
+
+.research-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
