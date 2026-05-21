@@ -37,41 +37,30 @@ window.addEventListener('DOMContentLoaded', event => {
     researchToggles.forEach(toggle => {
         toggle.addEventListener('click', async (e) => {
             e.preventDefault();
-            
+
             const researchId = toggle.getAttribute('data-research-id');
             const contentContainer = document.getElementById(`research-content-${researchId}`);
-            const innerDiv = contentContainer.querySelector('.ps-4');
+            const innerDiv = contentContainer.querySelector('.inner');
             const toggleIcon = toggle.querySelector('.toggle-icon');
             const isCurrentlyActive = contentContainer.classList.contains('active');
-            
+
             if (!isCurrentlyActive) {
-                // Opening the section
-                // Load content if not already loaded
-                const contentExists = innerDiv.innerHTML.trim() !== '' && !innerDiv.innerHTML.includes('Content will be loaded here');
-                
-                if (!contentExists) {
+                if (innerDiv.innerHTML.trim() === '') {
                     try {
                         const response = await fetch(`assets/research/research-${researchId}.html`);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const content = await response.text();
-                        innerDiv.innerHTML = content;
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        innerDiv.innerHTML = await response.text();
                     } catch (error) {
                         console.error(`Error loading research content ${researchId}:`, error);
-                        innerDiv.innerHTML = `<p style="color: red;">Error loading content. Please check the file path: assets/research/research-${researchId}.html</p>`;
+                        innerDiv.innerHTML = `<p style="color:var(--accent)">Content unavailable.</p>`;
                     }
                 }
-                
                 contentContainer.classList.add('active');
                 toggle.classList.add('active');
-                toggleIcon.classList.add('active');
-                toggleIcon.textContent = '▼';
+                toggleIcon.textContent = '▶';
             } else {
-                // Closing the section
                 contentContainer.classList.remove('active');
                 toggle.classList.remove('active');
-                toggleIcon.classList.remove('active');
                 toggleIcon.textContent = '▶';
             }
         });
